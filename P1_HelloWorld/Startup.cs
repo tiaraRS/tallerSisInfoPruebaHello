@@ -32,6 +32,10 @@ namespace P1_HelloWorld
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "P1_HelloWorld", Version = "v1" });
             });
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => { options.AllowAnyOrigin(); options.AllowAnyMethod(); options.AllowAnyHeader(); });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +50,8 @@ namespace P1_HelloWorld
 
             app.UseHttpsRedirection();
 
+            app.UseCors(options => { options.AllowAnyOrigin(); options.AllowAnyMethod(); options.AllowAnyHeader(); });
+
             app.UseRouting();
 
             app.UseAuthorization();
@@ -54,6 +60,7 @@ namespace P1_HelloWorld
             {
                 endpoints.MapControllers();
             });
+            
         }
     }
 }
